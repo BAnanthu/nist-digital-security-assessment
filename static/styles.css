@@ -4,7 +4,7 @@ body{
 }
 
 .option-selected{
-    background-color: #e85500;
+    background-color: #326872;
     padding: 2px 5px;
     display: flex;
     justify-content: center;
@@ -28,7 +28,7 @@ body{
 button, #Next{
     border-radius: 100px;
     padding: 3px 1px;
-    background-color: rgb(37, 0, 139);
+    background-color: #326872;
     color: white;
     width: 100px !important;
 }
@@ -36,7 +36,7 @@ button, #Next{
     text-align:center;
     border-radius: 100px;
     padding: 3px 1px;
-    background-color: rgb(37, 0, 139);
+    background-color: #326872;
     color: white;
     width: 100px !important;
 }

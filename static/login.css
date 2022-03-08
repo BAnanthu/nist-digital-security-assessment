@@ -4,14 +4,14 @@
 .effect-12,
 .effect-13,
 .effect-14,
-.effect-15{border: 0; padding: 7px 25px; border: 1px solid #e85500; position: relative; background: transparent;}
+.effect-15{border: 0; padding: 7px 25px; border: 1px solid #326872; position: relative; background: transparent;}
 
 input{
     margin: auto !important;
 }
 .button{
     color: rgb(255, 255, 255);
-    background-color: #e85500;
+    background-color: #326872;
     border-radius: 50px;
     transition: .5s;
 }
@@ -21,5 +21,5 @@ input{
     transition: 1s;
 }
 h3{
-    color: #e85500;
+    color: #326872;
 }

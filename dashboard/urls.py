@@ -8,6 +8,6 @@ urlpatterns = [
     path('questions', views.QuestionsListView.as_view(), name="questions_list"),
     path('question/<int:pk>', views.QuestionsEditView.as_view(), name="question_edit"),
     path('option/<int:pk>', views.OptionEditView.as_view(), name="option_edit"),
-    # path('setupdatabase/', views.setupdatabase),
+    path('setupdatabase/', views.setupdatabase),
 
 ]

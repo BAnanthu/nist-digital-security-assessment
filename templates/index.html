@@ -15,15 +15,17 @@
 <div class=" shadow-sm d-flex justify-content-center">
     <div class="row">
         <div class="col">
-            <img class="img-fluid ps-5 pe-5 pt-2 pb-2" src="{% static '/images/logo.png' %}" style="max-width: 350px;"
-                alt="logo" srcset="">
+<!--            <img class="img-fluid ps-5 pe-5 pt-2 pb-2" src="{% static '/images/logo.png' %}" style="max-width: 350px;"-->
+<!--                alt="logo" srcset="">-->
+            <h1 style="color:#326872;">A T S L</h1>
+            <h5>s o l u t i o n s</h5>
 
         </div>
 
     </div>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light "
-    style="background-color: #e85500 !important;padding-bottom:0px !important;">
+    style="background-color: #326872 !important;padding-bottom:0px !important;">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,12 +78,12 @@
 
 <div class=" mt-5">
     <div class="row d-flex justify-content-center" id="sybcat">
-        <h5 class="col-12 text-center " style="color: #e85500;">{{subcategory.subcategory_name}}</h5>
+        <h5 class="col-12 text-center " style="color: #326872;">{{subcategory.subcategory_name}}</h5>
 
     </div>
     <div class="row d-flex justify-content-center question">
         <span id="main-question">
-            <p class="col-12 text-center" style="color:#e85500; font-Size:20px;">{{subcategory.subcategory_details}}<i class="fas fa-question-circle"></i></p>
+            <p class="col-12 text-center" style="color:#326872; font-Size:20px;">{{subcategory.subcategory_details}}<i class="fas fa-question-circle"></i></p>
         </span>
         {% if levels %}
         {% for level in levels %}

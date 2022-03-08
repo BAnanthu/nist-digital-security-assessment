@@ -146,7 +146,7 @@ MEDIA_URL = '/media/'
 # ]
 
 LOGIN_URL = '/accounts/signin'
-LOGIN_REDIRECT_URL = '/admin-dashboard'
+LOGIN_REDIRECT_URL = '/assessment'
 
 #
 # LOGIN_URL = '/ajit-saigal/accounts/signin'

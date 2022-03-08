@@ -1,0 +1,244 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block header %}
+<div class="box" style="position: fixed;">
+
+    <div class="b b1"></div>
+    <div class="b b2"></div>
+    <div class="b b3"></div>
+    <div class="b b4"></div>
+
+</div>
+
+<div class=" shadow-sm d-flex justify-content-center">
+    <div class="row">
+        <div class="col">
+            <img class="img-fluid ps-5 pe-5 pt-2 pb-2" src="{% static '/images/logo.png' %}" style="max-width: 350px;"
+                alt="logo" srcset="">
+
+        </div>
+
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light "
+    style="background-color: #e85500 !important;padding-bottom:0px !important;">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" style="color: white; font-weight: 600;" href="#">Identify</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="functions-list">
+
+            </ul>
+            <a href="" class="col-2 " style="text-decoration: none;color: white;"><span><i class="fas fa-sign-out"></i>
+                    logout</span></a>
+            <!-- <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+        </div>
+    </div>
+</nav>
+
+
+
+{% include 'progress-bar.html' %}
+{% endblock %}
+
+
+{% block maincontent %}
+
+<div class=" mt-5">
+    <div class="row d-flex justify-content-center" id="sybcat">
+
+    </div>
+    <div class="row d-flex justify-content-center">
+        <span id="main-question"></span>
+        <div class="row d-flex justify-content-center" id="your_level">
+
+        </div>
+        <div id="ajax_updated" class="row d-flex justify-content-center mt-5 " style="min-height: 150px;">
+
+        </div>
+
+    </div>
+    <div class="row d-flex justify-content-center mt-5  mb-5">
+        <button id="prev" class=" col-4 col-xl-1 " onclick="previous()">
+            << Prev</button>
+                <span class="col-1 "></span>
+                <!-- <button class=" col-4 col-xl-1 " onclick="">Next >></button> -->
+                <button id="next" class=" col-4 col-xl-1 " onclick="next()">Next >></button>
+    </div>
+</div>
+</div>
+<script>
+    $(".box").show();
+    $("#next").hide()
+    $("#prev").hide()
+    $(document).ready(function () {
+        main();
+    });
+
+    function main() {
+
+        fetchingData();
+        getfunctions();
+
+
+    }
+
+function setReportModule(){
+    $('#ajax_updated').hide()
+    $('#ajax_updated').empty()
+    $('#ajax_updated').append(`<div class="col-xl-3  col-md-4 row mt-2 d-flex justify-content-center">
+    <div id="" class="row option d-flex justify-content-center" onclick="selected(this)" name="opts"><span class="col-8 d-flex justify-content-center" >dddd</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+    </div>`);
+    $('#ajax_updated').slideDown()
+    count = 0
+    store.dispatch({ type: 'SETTERINDEX', data: ++index })
+    index = store.getState()['SetterIndex']
+    console.log("index is",index)
+}
+
+
+function setQuestionModule(count,array,index){
+    setter(index)
+    console.log("setQuestionModule")
+    setQuestions(array.questions[index], count)
+    setOptions(array.questions[index].Options, count)
+    console.log("count"+count)
+    reset=false
+    if(count==7){
+        reset=true
+        store.dispatch({ type: 'SETTERINDEX', data: ++index })
+        index = store.getState()['SetterIndex']
+        console.log("index is",index)
+    }
+}
+    let count = 0
+    let reset=false
+    function next(){
+        var index = store.getState()['SetterIndex']
+        // console.log(index)
+        var array = store.getState()['Data']
+        // console.log(array)
+        var option=array.questions[index].Type
+        // console.log(option)
+        switch(option){
+            case "question":setQuestionModule(reset?count:++count,array,index);break;
+            case "report":setReportModule();break;
+            default:alert("internal error!");break;
+        }
+    }
+    mode_previous=false
+    function previous(){
+        // if(!mode_previous){
+        //     index = store.getState()['SetterIndex']
+        //     if(count==0){
+        //         count=7
+        //         store.dispatch({ type: 'SETTERINDEX', data: --index })
+        //     }
+        //     mode_previous=true
+        // }
+        console.log("previouscount"+count);
+        var index = store.getState()['SetterIndex']
+        console.log(index)
+        var array = store.getState()['Data']
+        console.log(array)
+        var option=array.questions[index].Type
+        console.log(option)
+        switch(option){
+            case "question":setPrevQuestionModule(count,array,index);break;
+            case "report":setPrevReportModule();break;
+            default:alert("internal error!");break;
+        }
+    }
+    
+
+
+function setPrevReportModule(){
+    $('#ajax_updated').hide()
+    $('#ajax_updated').empty()
+    $('#ajax_updated').append(`<div class="col-xl-3  col-md-4 row mt-2 d-flex justify-content-center">
+    <div id="" class="row option d-flex justify-content-center" onclick="selected(this)" name="opts"><span class="col-8 d-flex justify-content-center" >dddd</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+    </div>`);
+    $('#ajax_updated').slideDown()
+    count = 7
+    store.dispatch({ type: 'SETTERINDEX', data: --index })
+    index = store.getState()['SetterIndex']
+    console.log("index is",index)
+}
+
+
+function setPrevQuestionModule(count,array,index){
+   
+    if(count==0){
+        if(index==0){alert("no previous")}
+        else{
+        count=7
+        store.dispatch({ type: 'SETTERINDEX', data: --index })
+        index = store.getState()['SetterIndex']
+        console.log("index is",index)
+        setter(index)
+        console.log("setQuestionModule")
+        setQuestions(array.questions[index], count)
+        setOptions(array.questions[index].Options, count)
+        console.log("count"+count)
+        }
+    }else{
+    setter(index)
+    console.log(`setQuestions  count:${count} index${index}`)
+    console.log(array.questions[index].Options)
+    setQuestions(array.questions[index], count-1)
+    setOptions(array.questions[index].Options, count-1)
+    console.log("count"+count)
+    }
+    
+    
+}
+
+</script>
+
+{% endblock %}
+
+
+<!-- 
+var array
+    function next() {
+        var index = store.getState()['SetterIndex']
+        if (count == 7) {
+            // count = 0
+            
+            store.dispatch({ type: 'SETTERINDEX', data: ++index })
+            index = store.getState()['SetterIndex']
+            // setter(index)
+        }
+        if(count==8){
+             count = 0     
+             store.dispatch({ type: 'SETTERINDEX', data: ++index })
+            index = store.getState()['SetterIndex']
+             setter(index)
+             console.log( index);
+            console.log(count);
+         
+        }
+        array = store.getState()['Data']
+        if (array.questions[index].Type == "report") {
+            $('#ajax_updated').empty()
+            setReport()
+            console.log(array.questions[index].Type)
+            ++count;
+            console.log("count"+count)
+        }
+        else if(array.questions[index].Type == "question") {
+            ++count
+            console.log(count);
+            console.log(array.questions[index].Type)
+            setQuestions(array.questions[index], count)
+            setOptions(array.questions[index].Options, count)
+        }
+    } -->

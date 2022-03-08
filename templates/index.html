@@ -1,0 +1,415 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block header %}
+<div class="box" style="position: fixed;">
+
+    <div class="b b1"></div>
+    <div class="b b2"></div>
+    <div class="b b3"></div>
+    <div class="b b4"></div>
+
+</div>
+
+<div class=" shadow-sm d-flex justify-content-center">
+    <div class="row">
+        <div class="col">
+            <img class="img-fluid ps-5 pe-5 pt-2 pb-2" src="{% static '/images/logo.png' %}" style="max-width: 350px;"
+                alt="logo" srcset="">
+
+        </div>
+
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light "
+    style="background-color: #e85500 !important;padding-bottom:0px !important;">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" style="color: white; font-weight: 600;" href="#">{{subcategory.function_id.function_name}}</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="functions-list">
+                <li class="nav-item"><a class="nav-link  {% if subcategory.function_id.function_name == 'IDENTIFY' %} active {% endif %}" aria-current="page"  style="padding-right:30px;">IDENTIFY</a></li>
+                <li class="nav-item"><a class="nav-link  {% if subcategory.function_id.function_name == 'PROTECT' %} active {% endif %}" aria-current="page"  style="padding-right:30px;">PROTECT</a></li>
+                <li class="nav-item"> <a class="nav-link  {% if subcategory.function_id.function_name == 'DETECT' %} active {% endif %}" aria-current="page"  style="padding-right:30px;">DETECT</a></li>
+                <li class="nav-item"><a class="nav-link  {% if subcategory.function_id.function_name == 'RESPOND' %} active {% endif %}" aria-current="page"  style="padding-right:30px;">RESPOND</a></li>
+                <li class="nav-item"> <a class="nav-link  {% if subcategory.function_id.function_name == 'RECOVER' %} active {% endif %}" aria-current="page"  style="padding-right:30px;">RECOVER</a></li>
+
+            </ul>
+            <a href="{% url 'signout' %}" class="col-2 " style="text-decoration: none;color: white;"><span><i class="fas fa-sign-out"></i>
+                    logout</span></a>
+            <!-- <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+        </div>
+    </div>
+</nav>
+
+
+
+{% include 'progress-bar.html' %}
+{% endblock %}
+
+
+{% block maincontent %}
+
+<form method="post" action="" name="mainForm" id="mainForm">
+    {% csrf_token %}
+    <input type="hidden" name="sub_category_id" id="sub_category_id" value="{{subcategory.subcategory_id}}">
+    <input type="hidden" name="identify_id" id="function_id" value="{{subcategory.function_id.function_id}}">
+    <input type="hidden" name="category_id" value="{{subcategory.category_id.category_id}}">
+    <input type="hidden" name="screen_type" id="screen_type" value="">
+    <input type="hidden" name="direction" id="direction" value="">
+
+<!--    <input type="hidden" name="policy_level_value" value="">-->
+<!--    <input type="hidden" name="Documentation_Level_value" value="">-->
+<!--    <input type="hidden" name="Automation_Level_value" value="">-->
+<!--    <input type="hidden" name="Assessed_Maturity_Level_value" value="">-->
+<!--    <input type="hidden" name="Primary_Threat_value" value="">-->
+<!--    <input type="hidden" name="Likelihood_of_Threat_value" value="">-->
+<!--    <input type="hidden" name="Impact_of_Threat_Occurrence_value" value="">-->
+
+
+<div class=" mt-5">
+    <div class="row d-flex justify-content-center" id="sybcat">
+        <h5 class="col-12 text-center " style="color: #e85500;">{{subcategory.subcategory_name}}</h5>
+
+    </div>
+    <div class="row d-flex justify-content-center question">
+        <span id="main-question">
+            <p class="col-12 text-center" style="color:#e85500; font-Size:20px;">{{subcategory.subcategory_details}}<i class="fas fa-question-circle"></i></p>
+        </span>
+        {% if levels %}
+        {% for level in levels %}
+        <span id="level_{{ level.level_id }}" class="level">
+        <div class="row d-flex justify-content-center">
+            {% if level.level_details %}
+            <h2 class="col-12 text-center">{{level.level_details}}</h2>
+            {% else %}
+            <h2 class="col-12 text-center"> {% if level.level_name|slugify == 'assessed-maturity-level' %} Your  {{ level.level_name|slugify }} {% else %} What is your  {{ level.level_name|slugify }}?{% endif %}</h2>
+            {% endif %}
+            <input type="hidden" id="{{ level.level_name|slugify }}" name="{{ level.level_name|slugify }}" value="">
+        </div>
+        <div id="ajax_updated_{{level.level_id}}" class="row d-flex justify-content-center mt-5 options-container" style="min-height: 150px;">
+
+             {% for x in options %}
+
+                {% if x.level_id.level_id == level.level_id %}
+            <div class="{% if x.level_id.level_id == 5 %}d-flex justify-content-center{% else %}col-xl-3 col-md-4 {% endif %} row mt-2 d-flex justify-content-center">
+            <div id="option_{{ x.option_id.option_id }}" data-levelid="{{x.level_id.level_id}}" data-optionid="{{x.option_id.option_id}}"
+                    data-level="{{ level.level_name|slugify }}" data-option="{{x.option_id.option}}"
+                 class="row option d-flex justify-content-center" name="opts">
+                <span class="col-8 d-flex justify-content-center" >  {{ x.option_id.option }}</span>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+            </div>
+
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        </div>
+
+        <div class="row d-flex justify-content-center mt-5  mb-5">
+        <div  class=" col-4 col-xl-1 next-btn" data-direction="previous" data-levelid="{{level.level_id}}">
+            << Prev</div>
+                <span class="col-1"></span>
+                <!-- <button class=" col-4 col-xl-1 " onclick="">Next >></button> -->
+                <div class=" col-4 col-xl-1 next-btn" data-direction="next" data-levelid="{{level.level_id}}" data-levelname="{{level.level_name|slugify}}">Next >></div>
+        </div>
+        </span>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+<!--    <div class="row d-flex justify-content-center mt-5  mb-5">-->
+<!--        <button id="prev" class=" col-4 col-xl-1 " onclick="previous()">-->
+<!--            << Prev</button>-->
+<!--                <span class="col-1 "></span>-->
+<!--                &lt;!&ndash; <button class=" col-4 col-xl-1 " onclick="">Next >></button> &ndash;&gt;-->
+<!--                <div id="Next" class=" col-4 col-xl-1 " >Next >></div>-->
+<!--    </div>-->
+    {% if screen_type == "report" %}
+    <div class="report">
+    <div class="row d-flex justify-content-center p-3" style="background:#D3D3D3">
+        <div class="col-4 d-flex justify-content-center">
+            YOUR CURRENT STATE
+        </div>
+        <div class="col-4 d-flex justify-content-center">
+            PEER AVERAGE
+        </div>
+        <div class="col-4 d-flex justify-content-center">
+            YOUR DESIRED STATE
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center m-4">
+        <h5 class="col-12 text-left pl-4" style="color: black;">Maturity level</h5>
+    </div>
+    <div class="row d-flex justify-content-around m-3">
+        <div class="row option d-flex justify-content-center" name="opts">
+                <span class="col-8 d-flex justify-content-center" >{{maturity_level}}</span>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+        <div class="row option d-flex justify-content-center" name="opts">
+                <span class="col-8 d-flex justify-content-center" >{{asd_maturity_avg.option_id.option}}</span>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+        <div class="row option d-flex justify-content-center" name="opts">
+                <span class="col-8 d-flex justify-content-center" >
+                    <select id="desired-state" class="option" {% if desired_state %} value="{{desired_state.id}}"{% endif %} data-reportid="{{report_id}}" style="height:40px;box-shadow:none !important;border:none;">
+                     <option value="None"> {% if desired_state %}{{desired_state.option_id.option}}{% else %}--select--{% endif %}</option>
+                        {% for state in your_desired_state %}
+                    <option value="{{state.id}}">{{state.option_id.option}}</option>
+                        {% endfor %}
+                </select></span>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+    </div>
+    <div class="row d-flex justify-content-center m-4">
+        <h5 class="col-12 text-left" style="color: black;">Threat Severity</h5>
+    </div>
+    <div class="row d-flex justify-content-around m-3">
+        <div class="row option d-flex justify-content-center" name="opts" style="
+         background:{% if threat_severity == 1 %}green{% elif threat_severity == 2 %}
+                    yellow{% elif threat_severity == 3 %}orange{% elif threat_severity == 4 %}
+                    red{% else %}white{% endif %}">
+                <span class="col-8 d-flex justify-content-center" >
+                    {% if threat_severity == 1 %}Low{% elif threat_severity == 2 %}
+                    Medium{% elif threat_severity == 3 %}High{% elif threat_severity == 4 %}
+                    Critical{% else %}None{% endif %}
+
+                </span>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+        <div class="row option d-flex justify-content-center" name="opts" style="background:{% if level_avg == 'Low' %}green{% elif level_avg == 'Medium' %}
+                    yellow{% elif level_avg == 'High' %}orange{% elif level_avg == 'Critical' %}
+                    red{% else %}white{% endif %}">
+                <span class="col-8 d-flex justify-content-center" >{{level_avg}}</span>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+        <div class="row option d-flex justify-content-center " name="opts" id="state-name-box" style="background:{% if desired_state_severity == 'Low' %}green{% elif desired_state_severity == 'Medium' %}
+                    yellow{% elif desired_state_severity == 'High' %}orange{% elif desired_state_severity == 'Critical' %}
+                    red{% else %}white{% endif %}">
+                <span class="col-8 d-flex justify-content-center" id="desired-state-name">{% if desired_state_severity %}
+                    {{desired_state_severity}} {% endif %}</span>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+    </div>
+         <div class="row d-flex justify-content-center mt-5  mb-5  p-4">
+      <input type="submit" class="next-btn" value="Next" form="mainForm">
+              </div>
+    </div>
+    {% endif %}
+</div>
+
+</form>
+</div>
+<script>
+    $(".question").show();
+    //$(".report").hide();
+    $(".box").show();
+    $("#next").show()
+    $("#prev").show()
+    $('.level').hide()
+    $('#level_1').show("slow")
+    $('#screen_type').val("question")
+    $(document).ready(function () {
+        main();
+    });
+    $('#direction').val("next")
+    function main() {
+        $(".box").hide();
+    }
+
+    {% if answers %}
+        $("#option_"+{{answers.process_level_value.option_id.option_id}}).addClass('option-selected');
+        $("#{{ answers.process_level_value.level_id.level_name|slugify }}").val({{answers.process_level_value.option_id.option_id}})
+        $("#option_"+{{answers.policy_level_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.policy_level_value.level_id.level_name|slugify }}").val({{answers.policy_level_value.option_id.option_id}})
+        $("#option_"+{{answers.Documentation_Level_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Documentation_Level_value.level_id.level_name|slugify }}").val({{answers.Documentation_Level_value.option_id.option_id}})
+        $("#option_"+{{answers.Automation_Level_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Automation_Level_value.level_id.level_name|slugify }}").val({{answers.Automation_Level_value.option_id.option_id}})
+        $("#option_"+{{answers.Primary_Threat_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Primary_Threat_value.level_id.level_name|slugify }}").val({{answers.Primary_Threat_value.option_id.option_id}})
+        $("#option_"+{{answers.Likelihood_of_Threat_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Likelihood_of_Threat_value.level_id.level_name|slugify }}").val({{answers.Likelihood_of_Threat_value.option_id.option_id}})
+        $("#option_"+{{answers.Impact_of_Threat_Occurrence_value.option_id.option_id}}).addClass('option-selected');
+        $("#{{ answers.Impact_of_Threat_Occurrence_value.level_id.level_name|slugify }}").val({{answers.Impact_of_Threat_Occurrence_value.option_id.option_id}})
+    {% endif %}
+
+    function getInput(){
+        $("#process-level")
+        $("#policy-level")
+        $("#documentation-level")
+        $("#automation-level")
+        $("#assessed-maturity-level")
+        $("#primary-threat")
+        $("#likelihood")
+        $("#impact")
+        $("#"+level).val(option_id);
+        $('#ajax_updated_'+levelid).find('.option').removeClass('option-selected');
+        $(this).addClass('option-selected');
+         assessed_maturity_level,primary_threat,likelihood,impact
+    }
+
+
+    $('.option').on('click',function(e){
+
+        var level = $(this).data('level');
+        var levelid = $(this).data('levelid');
+        var option_id = $(this).data('optionid')
+        $("#"+level).val(option_id);
+        $('#ajax_updated_'+levelid).find('.option').removeClass('option-selected');
+        $(this).addClass('option-selected');
+
+    })
+
+     $('.next-btn').on('click',function(e){
+        var levelid = $(this).data('levelid');
+        var direction = $(this).data('direction')
+
+        //check if it is first question
+
+        if(direction=="previous" && levelid=="1" && $('#sub_category_id').val() == 1 ){
+            alert("no data found")
+            return;
+        }
+
+        //check if any option is chosen
+        if(direction=='next'){
+             var levelname = $(this).data('levelname');
+             option_chosen =  $("#"+levelname).val()
+             if (option_chosen == ""){
+                 alert("Please Choose an option to continue.");
+                 return;
+             }
+        }
+
+        //alert(direction)
+        $(".question").show();
+        //var levelid = $(this).data('levelid');
+        $('.level').hide()
+
+
+
+        if(direction=="previous" && levelid=="1"){
+                $('#direction').val("previous")
+                $( "#mainForm" ).submit();
+        }else{
+            if(direction=="next"){
+            $('#level_'+(parseInt(levelid)+1)).show("slow")
+            }
+            if(direction=="previous"){
+            $('#level_'+(parseInt(levelid)-1)).show("slow")
+            }
+        }
+
+
+
+
+        var url = '{% url "assessed-maturity-level" %}';
+
+        if(levelid=="4"){
+        var process_level = $("#process-level").val();
+        var policy_level = $("#policy-level").val();
+        var documentation_level =  $("#documentation-level").val();
+        var automation_level = $("#automation-level").val();
+        var response = getAssessedMaturityLevel(process_level,policy_level,documentation_level,automation_level);
+        }
+
+        if(levelid=="8" && direction=="next"){
+            $('#screen_type').val("report")
+            $( "#mainForm" ).submit();
+            $(".report").show();
+            $(".question").hide();
+        }
+
+        if(direction=="next"){
+            $('#direction').val("next")
+        }else if(direction=="previous"){
+            $('#direction').val("previous")
+        }
+
+
+
+
+
+     });
+
+    function getAssessedMaturityLevel(process_level,policy_level,documentation_level,automation_level){
+    var url = '{% url "assessed-maturity-level" %}'
+      $(".box").show();
+    $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: {
+                    "process-level":process_level,
+                    "policy-level":policy_level,
+                    "documentation-level":documentation_level,
+                    "automation-level":automation_level,
+                    "csrfmiddlewaretoken": '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    console.log(response);
+                    option_id = response["option_id"];
+                    level_id = response["level_id"];
+                    $("#assessed-maturity-level").val(option_id);
+                    $('#ajax_updated_'+level_id).find('.option').removeClass('option-selected');
+                    $('#ajax_updated_'+level_id).find('.option').addClass('d-none');
+                    $("#option_"+option_id).addClass('option-selected');
+                    $("#option_"+option_id).removeClass('d-none');
+                      $(".box").hide();
+                    return response;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+    }
+
+    $('#desired-state').change(function(e){
+    var desired_state = $(this).val();
+    var report_id = $(this).data("reportid");
+    var function_id = $('#function_id').val();
+    console.log(function_id)
+    var bg_color ='white';
+    var url = '{% url "your-desired-level-view" %}'
+    $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                data: {
+                    "desired_state":desired_state,
+                    "report_id":report_id,
+                    "function_id":function_id,
+                },
+                success: function (response) {
+                    console.log(response);
+                    threat_severity = response["threat_severity"];
+                    $("#desired-state-name").text(threat_severity);
+
+                     if (threat_severity == 'Low'){
+                        bg_color = 'green'
+                     }else if (threat_severity == 'Medium'){
+                        bg_color = 'yellow'
+                     } else if (threat_severity == 'High'){
+                        bg_color = 'orange'
+                     } else if (threat_severity == 'Critical'){
+                        bg_color = 'red'
+                     }
+
+                     $("#state-name-box").css("background",bg_color)
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+    });
+
+</script>
+
+{% endblock %}
+

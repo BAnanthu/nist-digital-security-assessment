@@ -1,0 +1,90 @@
+[
+  {
+    "progress_by_function": {
+      "user_id": 1,
+      "identify_id": 1,
+      "protect_id": null,
+      "detect_id": null,
+      "recover_id": null,
+      "respond_id": null
+    },
+    "progress_by_category": {
+      "IDENTIFY": {
+        "1": {
+          "id": 1,
+          "name": "ID.AM",
+          "status": 0
+        },
+        "2": {
+          "id": 2,
+          "name": "IDBE",
+          "status": 0
+        },
+        "3": {
+          "id": 3,
+          "name": "IDG",
+          "status": 0
+        },
+        "4": {
+          "id": 4,
+          "name": "IDRA",
+          "status": 0
+        },
+        "5": {
+          "id": 5,
+          "name": "IDRMS",
+          "status": 0
+        },
+        "6": {
+          "id": 6,
+          "name": "IDSC",
+          "status": 0
+        }
+      }
+    },
+    "progress_by_subcategory": {
+      "IDENTIFY": {
+        "1": {
+          "id": 1,
+          "name": "ID AM 1",
+          "status": 0
+        },
+         "2": {
+          "id": 1,
+          "name": "ID.AM-2",
+          "status": 0
+        },
+         "3": {
+          "id": 1,
+          "name": "ID.AM-3",
+          "status": 0
+        },
+         "4": {
+          "id": 1,
+          "name": "ID.AM-4",
+          "status": 0
+        },
+         "5": {
+          "id": 1,
+          "name": "ID.AM-5",
+          "status": 0
+        },
+         "6": {
+          "id": 1,
+          "name": "ID.AM-6",
+          "status": 0
+        }
+      }
+    },
+    "progress_percentage": {
+      "ID.AM": {
+        "total_items" : 6,
+        "percentage": 100
+      }
+    },
+    "total_subcategories": 108,
+    "total_categoried": 23,
+    "total_functions": 5,
+    "total_levels" : 8
+  }
+]

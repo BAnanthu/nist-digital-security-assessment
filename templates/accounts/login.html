@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+    <div class="container" style="height: 100vh; ">
+        <div class="row d-flex justify-content-center align-items-center"  style="height: 100%;">
+            <div class="col-4 align-self-center" style="height: 550px; width: 400px;box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;">
+                <div class="row mt-4 justify-content-center align-items-center">
+                    <img class="img-fluid ps-5 pe-5 pt-2 pb-2" src="{% static '/images/logo.png' %}" style="max-width: 350px;">
+                    <h3 class="col-12 d-flex justify-content-center align-items-center p-4">Login</h3>
+                </div>
+                <div class="row">
+                    <div class="col-12  d-flex justify-content-center align-items-center">
+                            <input class="effect-13 mt-5" type="text" name="email" placeholder="email">
+                            <span class="focus-bg"></span>
+                    </div>
+                    <div class="col-12  d-flex justify-content-center align-items-center">
+                        <input class="effect-13  mt-5" type="password" name="password" placeholder="password">
+                            <span class="focus-bg"></span>
+                    </div>
+
+                    <div class="col-12  d-flex justify-content-center align-items-center">
+                        <input class="effect-13  mt-5 button" type="submit" value="login" placeholder="password">
+                            <span class="focus-bg"></span>
+                    </div>
+                    <div class="col-12 mt-4  d-flex justify-content-center align-items-center">
+                        <a href="{% url 'signup' %}">signup here</a>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="d-flex justify-content-center">
+                Demo(
+                <p class="focus-bg"><b>email</b> : admin@gmail.com</p>
+             
+                <p class="focus-bg"> &nbsp<b>password</b>  : 1001</p>
+                )
+            </div> -->
+           
+         
+        </div>
+        </div>
+
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,386 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block header %}
+<div class="box" style="position: fixed;">
+
+    <div class="b b1"></div>
+    <div class="b b2"></div>
+    <div class="b b3"></div>
+    <div class="b b4"></div>
+
+</div>
+
+<div class=" shadow-sm d-flex justify-content-center">
+    <div class="row">
+        <div class="col">
+            <img class="img-fluid ps-5 pe-5 pt-2 pb-2" src="{% static '/images/logo.png' %}" style="max-width: 350px;"
+                alt="logo" srcset="">
+
+        </div>
+
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light "
+    style="background-color: #e85500 !important;padding-bottom:0px !important;">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" style="color: white; font-weight: 600;" href="#">{{subcategory.function_id.function_name}}</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="functions-list">
+
+            </ul>
+            <a href="{% url 'signout' %}" class="col-2 " style="text-decoration: none;color: white;"><span><i class="fas fa-sign-out"></i>
+                    logout</span></a>
+            <!-- <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+        </div>
+    </div>
+</nav>
+
+
+
+{% include 'progress-bar.html' %}
+{% endblock %}
+
+
+{% block maincontent %}
+
+
+<div class=" mt-5">
+    <div class="row d-flex justify-content-center" id="sybcat">
+        <h1 class="col-12 text-center " style="color: #e85500;">Thank You</h1>
+        <h3 class="col-12 text-center mt-4" style="color: #e85500;">You have Successfully completed the Maturity and Threat Assessment Process</h3>
+    </div>
+    <div class="container mt-4 shadow-sm p-3 mb-5 bg-white rounded">
+        <table class="table ">
+  <caption>Final report (total {{total_datasets}})</caption>
+  <thead>
+    <tr style="background:#e85500;color:white;">
+      <th scope="col">#</th>
+      <th scope="col">Subcategory</th>
+      <th scope="col">Assessed maturity level</th>
+      <th scope="col">Severity</th>
+      <th scope="col">Level</th>
+      <th scope="col">Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+            <thead >
+         <tr style="background:#ffdbc7;color:black;">
+         <th colspan="6">Identify</th>
+        </tr>
+    </thead>
+
+    {% for dataset in identify_dataset %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{dataset.sub_category_id}}</td>
+      <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
+      <td>{{dataset.severity}}</td>
+        <td class="" >
+            <div class="d-flex justify-content-center" style="color:white;background:{% if dataset.level == 1 %}green{% elif dataset.level == 2 %}
+                    yellow;color:black;{% elif dataset.level == 3 %}orange{% elif dataset.level == 4 %}
+                    red{% else %}white{% endif %}; height:26px;width:80px; border-radius:12px;">
+                 {% if dataset.level == 1 %}low{% elif dataset.level == 2 %}
+                    medium{% elif dataset.level == 3 %}high{% elif dataset.level == 4 %}
+                    critical{% else %}none{% endif %}
+            </div>
+
+
+
+        </td>
+      <td>{{dataset.total}}</td>
+    </tr>
+    {% endfor %}
+     <thead >
+         <tr style="background:#ffdbc7;color:black;">
+         <th colspan="6">Protect</th>
+        </tr>
+    </thead>
+      {% for dataset in protect_dataset %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{dataset.sub_category_id}}</td>
+      <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
+      <td>{{dataset.severity}}</td>
+        <td>  <div class="d-flex justify-content-center" style="color:white;background:{% if dataset.level == 1 %}green{% elif dataset.level == 2 %}
+                    yellow;color:black;{% elif dataset.level == 3 %}orange{% elif dataset.level == 4 %}
+                    red{% else %}white{% endif %}; height:26px;width:80px; border-radius:12px;">
+                 {% if dataset.level == 1 %}low{% elif dataset.level == 2 %}
+                    medium{% elif dataset.level == 3 %}high{% elif dataset.level == 4 %}
+                    critical{% else %}none{% endif %}
+            </div></td>
+      <td>{{dataset.total}}</td>
+    </tr>
+    {% endfor %}
+            <thead >
+         <tr style="background:#ffdbc7;color:black;">
+         <th colspan="6">Detect</th>
+        </tr>
+    </thead>
+
+      {% for dataset in detect_dataset %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{dataset.sub_category_id}}</td>
+      <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
+      <td>{{dataset.severity}}</td>
+        <td>  <div class="d-flex justify-content-center" style="color:white;background:{% if dataset.level == 1 %}green{% elif dataset.level == 2 %}
+                    yellow;color:black;{% elif dataset.level == 3 %}orange{% elif dataset.level == 4 %}
+                    red{% else %}white{% endif %}; height:26px;width:80px; border-radius:12px;">
+                 {% if dataset.level == 1 %}low{% elif dataset.level == 2 %}
+                    medium{% elif dataset.level == 3 %}high{% elif dataset.level == 4 %}
+                    critical{% else %}none{% endif %}
+            </div></td>
+      <td>{{dataset.total}}</td>
+    </tr>
+    {% endfor %}
+        <thead >
+         <tr style="background:#ffdbc7;color:black;">
+         <th colspan="6">Recover</th>
+        </tr>
+    </thead>
+
+      {% for dataset in recover_dataset %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{dataset.sub_category_id}}</td>
+      <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
+      <td>{{dataset.severity}}</td>
+        <td>  <div class="d-flex justify-content-center" style="color:white;background:{% if dataset.level == 1 %}green{% elif dataset.level == 2 %}
+                    yellow;color:black;{% elif dataset.level == 3 %}orange{% elif dataset.level == 4 %}
+                    red{% else %}white{% endif %}; height:26px;width:80px; border-radius:12px;">
+                 {% if dataset.level == 1 %}low{% elif dataset.level == 2 %}
+                    medium{% elif dataset.level == 3 %}high{% elif dataset.level == 4 %}
+                    critical{% else %}none{% endif %}
+            </div></td>
+      <td>{{dataset.total}}</td>
+    </tr>
+    {% endfor %}
+              <thead >
+         <tr style="background:#ffdbc7;color:black;">
+         <th colspan="6">Respond</th>
+        </tr>
+    </thead>
+
+      {% for dataset in respond_dataset %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{dataset.sub_category_id}}</td>
+      <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
+      <td>{{dataset.severity}}</td>
+        <td>  <div class="d-flex justify-content-center" style="color:white;background:{% if dataset.level == 1 %}green{% elif dataset.level == 2 %}
+                    yellow;color:black;{% elif dataset.level == 3 %}orange{% elif dataset.level == 4 %}
+                    red{% else %}white{% endif %}; height:26px;width:80px; border-radius:12px;">
+                 {% if dataset.level == 1 %}low{% elif dataset.level == 2 %}
+                    medium{% elif dataset.level == 3 %}high{% elif dataset.level == 4 %}
+                    critical{% else %}none{% endif %}
+            </div></td>
+      <td>{{dataset.total}}</td>
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table>
+    </div>
+
+</div>
+
+
+
+<script>
+    $(".question").show();
+    //$(".report").hide();
+    $(".box").show();
+    $("#next").show()
+    $("#prev").show()
+    $('.level').hide()
+    $('#level_1').show("slow")
+    $('#screen_type').val("question")
+    $(document).ready(function () {
+        main();
+    });
+    $('#direction').val("next")
+    function main() {
+        $(".box").hide();
+    }
+
+    {% if answers %}
+        $("#option_"+{{answers.process_level_value.option_id.option_id}}).addClass('option-selected');
+        $("#{{ answers.process_level_value.level_id.level_name|slugify }}").val({{answers.process_level_value.option_id.option_id}})
+        $("#option_"+{{answers.policy_level_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.policy_level_value.level_id.level_name|slugify }}").val({{answers.policy_level_value.option_id.option_id}})
+        $("#option_"+{{answers.Documentation_Level_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Documentation_Level_value.level_id.level_name|slugify }}").val({{answers.Documentation_Level_value.option_id.option_id}})
+        $("#option_"+{{answers.Automation_Level_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Automation_Level_value.level_id.level_name|slugify }}").val({{answers.Automation_Level_value.option_id.option_id}})
+        $("#option_"+{{answers.Primary_Threat_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Primary_Threat_value.level_id.level_name|slugify }}").val({{answers.Primary_Threat_value.option_id.option_id}})
+        $("#option_"+{{answers.Likelihood_of_Threat_value.option_id.option_id}}).addClass('option-selected');
+         $("#{{ answers.Likelihood_of_Threat_value.level_id.level_name|slugify }}").val({{answers.Likelihood_of_Threat_value.option_id.option_id}})
+        $("#option_"+{{answers.Impact_of_Threat_Occurrence_value.option_id.option_id}}).addClass('option-selected');
+        $("#{{ answers.Impact_of_Threat_Occurrence_value.level_id.level_name|slugify }}").val({{answers.Impact_of_Threat_Occurrence_value.option_id.option_id}})
+    {% endif %}
+
+    function getInput(){
+        $("#process-level")
+        $("#policy-level")
+        $("#documentation-level")
+        $("#automation-level")
+        $("#assessed-maturity-level")
+        $("#primary-threat")
+        $("#likelihood")
+        $("#impact")
+        $("#"+level).val(option_id);
+        $('#ajax_updated_'+levelid).find('.option').removeClass('option-selected');
+        $(this).addClass('option-selected');
+         assessed_maturity_level,primary_threat,likelihood,impact
+    }
+
+
+    $('.option').on('click',function(e){
+
+        var level = $(this).data('level');
+        var levelid = $(this).data('levelid');
+        var option_id = $(this).data('optionid')
+        $("#"+level).val(option_id);
+        $('#ajax_updated_'+levelid).find('.option').removeClass('option-selected');
+        $(this).addClass('option-selected');
+
+    })
+
+     $('.next-btn').on('click',function(e){
+
+        var direction = $(this).data('direction')
+        //alert(direction)
+        $(".question").show();
+        var levelid = $(this).data('levelid');
+        $('.level').hide()
+
+        if(direction=="previous" && levelid=="1"){
+                $('#direction').val("previous")
+                $( "#mainForm" ).submit();
+        }else{
+            if(direction=="next"){
+            $('#level_'+(parseInt(levelid)+1)).show("slow")
+            }
+            if(direction=="previous"){
+            $('#level_'+(parseInt(levelid)-1)).show("slow")
+            }
+        }
+
+
+
+
+        var url = '{% url "assessed-maturity-level" %}';
+
+        if(levelid=="4"){
+        var process_level = $("#process-level").val();
+        var policy_level = $("#policy-level").val();
+        var documentation_level =  $("#documentation-level").val();
+        var automation_level = $("#automation-level").val();
+        var response = getAssessedMaturityLevel(process_level,policy_level,documentation_level,automation_level);
+        }
+
+        if(levelid=="8"){
+            $('#screen_type').val("report")
+            $( "#mainForm" ).submit();
+            $(".report").show();
+            $(".question").hide();
+        }
+
+        if(direction=="next"){
+            $('#direction').val("next")
+        }else if(direction=="previous"){
+            $('#direction').val("previous")
+        }
+
+
+
+
+
+     });
+
+    function getAssessedMaturityLevel(process_level,policy_level,documentation_level,automation_level){
+    var url = '{% url "assessed-maturity-level" %}'
+    $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: {
+                    "process-level":process_level,
+                    "policy-level":policy_level,
+                    "documentation-level":documentation_level,
+                    "automation-level":automation_level,
+                    "csrfmiddlewaretoken": '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    console.log(response);
+                    option_id = response["option_id"];
+                    level_id = response["level_id"];
+                    $("#assessed-maturity-level").val(option_id);
+                    $('#ajax_updated_'+level_id).find('.option').removeClass('option-selected');
+                    $('#ajax_updated_'+level_id).find('.option').addClass('d-none');
+                    $("#option_"+option_id).addClass('option-selected');
+                    $("#option_"+option_id).removeClass('d-none');
+                    return response;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+    }
+
+    $('#desired-state').change(function(e){
+    var desired_state = $(this).val();
+    var report_id = $(this).data("reportid");
+    var function_id = $('#function_id').val();
+    console.log(function_id)
+    var bg_color ='white';
+    var url = '{% url "your-desired-level-view" %}'
+    $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                data: {
+                    "desired_state":desired_state,
+                    "report_id":report_id,
+                    "function_id":function_id,
+                },
+                success: function (response) {
+                    console.log(response);
+                    threat_severity = response["threat_severity"];
+                    $("#desired-state-name").text(threat_severity);
+
+                     if (threat_severity == 'Low'){
+                        bg_color = 'green'
+                     }else if (threat_severity == 'Medium'){
+                        bg_color = 'yellow'
+                     } else if (threat_severity == 'High'){
+                        bg_color = 'orange'
+                     } else if (threat_severity == 'Critical'){
+                        bg_color = 'red'
+                     }
+
+                     $("#state-name-box").css("background",bg_color)
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+    });
+
+</script>
+
+{% endblock %}
+

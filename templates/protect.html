@@ -1,0 +1,448 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block header %}
+<div class=" shadow-sm d-flex justify-content-center">
+  <div class="row">
+    <div class="col ">
+      <img class="img-fluid ps-5 pe-5 pt-2 pb-2" src="{% static '/images/logo.png' %}" style="max-width: 350px;"
+        alt="logo" srcset="">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light "
+  style="background-color: #e85500 !important;padding-bottom:0px !important;">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" style="color: white; font-weight: 600;" href="#">Identify</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="functions-list">
+        {% for item in function %}
+            <li class="nav-item">
+              <a class="nav-link  {% if item.id == active %} active {% endif %}" aria-current="page" href="{% url item.function_name %}"  style="padding-right:30px;">{{item.function_name}}</a>
+            </li>
+              {% endfor %}
+
+            
+      </ul>
+      <!-- <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+    </div>
+  </div>
+</nav>
+
+
+<!-- <div class=" d-flex justify-content-center " style="background-color: orangered; list-style: none;color: white;">
+      <li class="dropdown">
+          <button class="btn dropdown-toggle" style="background-color: orangered; box-shadow: none;color: white;"  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Identify
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+              <li><a class="dropdown-item" href="#">Identify</a></li>
+              <li><a class="dropdown-item" href="#">Protect</a></li>
+              <li><a class="dropdown-item" href="#">Detect</a></li>
+              <li><a class="dropdown-item" href="#">Respond</a></li>
+              <li><a class="dropdown-item" href="#">Recover</a></li>
+            </ul>
+        </li>
+    </div> -->
+
+
+
+{% include 'progress-bar.html' %}
+{% endblock %}
+
+
+{% block maincontent %}
+
+<div class=" mt-5">
+  <div class="row d-flex justify-content-center" id="sybcat">
+
+  </div>
+  <div class="row d-flex justify-content-center">
+    <span id="main-question"></span>
+    <div class="row d-flex justify-content-center" id="your_level">
+
+    </div>
+    <div id="ajax_updated" class="row d-flex justify-content-center mt-5 ">
+
+
+      <!--          <div class="col-xl-2  col-md-4 row mt-2 d-flex justify-content-center">-->
+      <!--            <div class="row option d-flex justify-content-center"><span class="col-8 d-flex justify-content-center">Inconsistent</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>-->
+      <!--          </div>-->
+      <!--          <div class="col-xl-2 col-md-4 row mt-2 d-flex justify-content-center">-->
+      <!--            <div class="row option d-flex justify-content-center"><span class="col-8 d-flex justify-content-center">Repetable</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>-->
+      <!--          </div>-->
+      <!--          <div class=" col-xl-2 row col-md-4 mt-2 d-flex justify-content-center">-->
+      <!--            <div class="row option d-flex justify-content-center"><span class="col-8 d-flex justify-content-center">Standardized</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>-->
+      <!--          </div>-->
+      <!--          <div class=" col-xl-2 row col-md-4 mt-2 d-flex justify-content-center">-->
+      <!--            <div class="row option d-flex justify-content-center"><span class="col-8 d-flex justify-content-center">Measured</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>-->
+      <!--          </div>-->
+      <!--          <div class=" col-xl-2 row col-md-4 mt-2 d-flex justify-content-center">-->
+      <!--            <div class="row option d-flex justify-content-center"><span class="col-8 d-flex justify-content-center">Optimized</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>-->
+      <!--          </div>-->
+    </div>
+
+  </div>
+  <div class="row d-flex justify-content-center mt-5  mb-5">
+    <!--        <button class=" col-4 col-xl-1 " onclick=""><< Prev</button>-->
+    <!--        <span class="col-1 "></span>-->
+    <!-- <button class=" col-4 col-xl-1 " onclick="">Next >></button> -->
+    <button id="next" class=" col-4 col-xl-1 " onclick="next()">Next >></button>
+  </div>
+</div>
+</div>
+
+<script>
+  $('document').ready(function (){
+    main(2)
+  })
+
+  //     $('button').click(function(id){
+
+  //       console.log("ajax");
+  //       $.ajax({
+  //             type: 'GET',
+  //             cache: true,
+  //             url: 'https://smart-hive-django.herokuapp.com/api/options/',
+  //             success: function (data){
+  //                 console.log(data);
+  //                 var update_info = data[count]['options'];
+  //                 console.log(update_info.length);
+  //                 console.log(update_info);
+  //                 $('#ajax_updated').empty()
+  //                 for (var i = 0; i < update_info.length; i++)
+  //                 {
+  //                     $('#ajax_updated').append(`<div class=" col-xl-2  col-md-4 row mt-2 d-flex justify-content-center">
+  //   <div class="row option-selected d-flex justify-content-center"><span class="col-8 d-flex justify-content-center">${update_info[i]['option']}</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+  // </div>`);
+
+
+  //                 }
+  //             },
+  //             error: function(data) {
+  //                    alert("Got an error dude... " + data);
+  //                },
+  //             });
+  //             if(count<data.length){
+  //               count++
+  //             }else count = 0; 
+
+  //     })
+
+
+  sessionStorage.function_id = 1;
+  sessionStorage.category_id = 30;
+  sessionStorage.sub_category_id = 1;
+  sessionStorage.level_id = 1;
+
+  // $.ajax({
+  //   type: 'GET',
+  //   cache: true,
+  //   url: 'http://127.0.0.1:8000/api/functions/',
+  //   success: function (data) {
+  //     console.log(data);
+
+  //     $('#functions-list').empty()
+  //     for (var i = 0; i < data.length; i++) {
+  //       $('#functions-list').append(`<li class="nav-item">
+  //             <a id="nav_${data[i]['id']}" name="nav" class="nav-link " aria-current="page" href="{% url 'IDENTIFY (ID)' %}"  style="padding-right:30px;"><span onclick="main(1)">${data[i]['name']}</span></a>
+  //           </li>`);
+
+
+  //     }
+  //   },
+  //   error: function (data) {
+  //     alert("Got an error dude... " + data);
+  //   },
+  // });
+
+
+  // $.ajax({
+  //   type: 'GET',
+  //   cache: true,
+  //   url: 'http://127.0.0.1:8000/api/Category/',
+  //   success: function (data) {
+  //     console.log(data);
+
+  //     $('#progress-list').empty()
+  //     for (var i = 0; i < data.length; i++) {
+  //       $('#progress-list').append(`<div class="col col-xl-2  col-md-6 pt-3">
+  //   <div class="row text-center">
+  //     <span class=" sub-cat">${data[i]['name']}</span>
+  //   </div>
+  //   <div>
+  //     <div class="progress"  style="height: 25px;">
+  //       <div class="progress-bar progress-bar-striped  progress-bar-animated" role="progressbar" style="width: 15%; background:#00b55a;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  //     </div>
+  //   </div>
+  // </div>`);
+
+
+  //     }
+  //   },
+  //   error: function (data) {
+  //     alert("Got an error dude... " + data);
+  //   },
+  // });
+
+  // $.ajax({
+  //   type: 'GET',
+  //   cache: true,
+  //   url: 'http://127.0.0.1:8000/api/sub-category/',
+  //   success: function (data) {
+  //     console.log(data);
+
+  //     $('#sybcat').empty()
+  //     $('#main-question').empty()
+  //     $('#sybcat').append(`<h5 class="col-12 text-center " style="color: #e85500;">${data[0]['name']}</h5>`);
+  //     $('#main-question').append(`<p class="col-12 text-center">${data[0]['detail']}<i class="fas fa-question-circle"></i></p>`);
+  //   },
+  //   error: function (data) {
+  //     alert("Got an error dude... " + data);
+  //   },
+  // });
+
+  // $.ajax({
+  //   type: 'GET',
+  //   cache: true,
+  //   url: 'http://127.0.0.1:8000/api/sub-category/',
+  //   success: function (data) {
+  //     console.log(data);
+
+  //     $('#sybcat').empty()
+  //     $('#sybcat').append(`<h5 class="col-12 text-center " style="color: #e85500;">${data[0]['name']}</h5>`);
+  //   },
+  //   error: function (data) {
+  //     alert("Got an error dude... " + data);
+  //   },
+  // });
+
+  var allOptions, allOptionsLength;
+  $.ajax({
+    type: 'GET',
+    cache: true,
+    url: 'https://smart-hive-django.herokuapp.com/api/options/',
+    success: function (data) {
+      console.log(data);
+      allOptions = data;
+      allOptionsLength = allOptions.length
+    },
+    error: function (data) {
+      alert("Got an error dude... " + data);
+    },
+  });
+
+
+  sessionStorage.function_id = 2;
+  sessionStorage.function_count = 1;
+  sessionStorage.category_id = 29;
+  sessionStorage.category_count = 1;
+  sessionStorage.sub_category_id = 1;
+  sessionStorage.sub_category_count = 1;
+  sessionStorage.level_id = 1;
+  sessionStorage.level_count = 1;
+  subcategory_collection = []
+
+  function onNext() {
+    sessionStorage.function_id = 1;
+    sessionStorage.function_count = 1;
+    sessionStorage.category_id = 29;
+    sessionStorage.category_count = 1;
+    sessionStorage.sub_category_id = 1;
+    sessionStorage.sub_category_count = 1;
+    sessionStorage.level_id = 1;
+    sessionStorage.level_count = 1;
+
+  }
+  categoryItemsCount = 0;
+  function categoryGenerator(function_id) {
+    $.ajax({
+      type: 'GET',
+      cache: true,
+      url: 'https://smart-hive-django.herokuapp.com/api/Category/',
+      success: function (data) {
+        console.log(data);
+
+        $('#progress-list').empty()
+        for (var i = 0; i < data.length; i++) {
+          if (data[i]['function_id'] == function_id) {
+            categoryItemsCount = categoryItemsCount + 1
+            console.log(currentCategory_id_id,categoryItemsCount);
+            console.log("categoryItemsCount", categoryItemsCount);
+            $('#progress-list').append(`<div class="col-xl-2  col-md-6  pt-3">
+              <div class="row text-center">
+                <span class=" sub-cat">${data[i]['name']}</span>
+              </div>
+              <div>
+                <div class="progress"  style="height: 25px;">
+                  <div class="progress-bar progress-bar-striped  progress-bar-animated" role="progressbar" id="category${data[i]['id']}" style="width: 0%; background:#00b55a;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>`);
+          }
+        }
+      },
+      error: function (data) {
+        alert("Got an error dude... " + data);
+      },
+    });
+  }
+
+
+  // function subCategory(category_id){
+  //   $.ajax({
+  //   type: 'GET',
+  //   cache: true,
+  //   url: 'http://127.0.0.1:8000/api/sub-category/',
+  //   success: function (data) {
+  //     console.log(data);
+
+  //     for(i=0;i<data.length;i++){
+  //       if(category_id==data[i]['category_id_id']){
+  //        subcategory_collection.push(data[i])
+  //       }
+  //     }
+
+  //     console.log(subcategory_collection)
+
+  //     $('#sybcat').empty()
+  //     $('#main-question').empty()
+  //     $('#sybcat').append(`<h5 class="col-12 text-center " style="color: #e85500;">${data[0]['name']}</h5>`);
+  //     $('#main-question').append(`<p class="col-12 text-center">${data[0]['detail']}<i class="fas fa-question-circle"></i></p>`);
+  //   },
+  //   error: function (data) {
+  //     alert("Got an error dude... " + data);
+  //   },
+  // });
+  // }
+
+  function main(function_id) {
+    // alert(function_id);
+    next(function_id);
+    categoryGenerator(function_id);
+    //  alert(sessionStorage.category_id);
+    subCategory(sessionStorage.category_id)
+
+
+  }
+  itemCount = 0
+  subCatCount= 1
+  function subCategory(category_id) {
+    $.ajax({
+      type: 'GET',
+      cache: true,
+      url: 'https://smart-hive-django.herokuapp.com/api/sub-category/',
+      success: function (data) {
+        console.log(data);
+        subCatCount = 0
+        data.forEach(itm => {
+         
+         if( itm['category_id_id'] == currentCategory_id_id){
+          subCatCount = subCatCount + 1
+          console.log(subCatCount,"*******")
+          
+         }
+        })
+  
+        $(`#category${currentCategory_id_id}`).css('width', `${(itemCount/subCatCount)*100}%`)
+  
+        if (currentCategory_id_id != data[category_id]['category_id_id']) {
+          // $(`#category${currentCategory_id_id}`).css('width', `${(itemCount/categoryItemsCount)*100}%`)
+          currentCategory_id_id = currentCategory_id_id + 1;
+          subCatCount = 0
+          itemCount = 0
+          console.log(currentCategory_id_id, 'next cat');
+         
+        }
+        itemCount = itemCount + 1
+        console.log("itemCount",itemCount);
+        $('#sybcat').empty()
+        $('#main-question').empty()
+        $('#sybcat').append(`<h5 class="col-12 text-center " style="color: #e85500;">${data[category_id]['name']}</h5>`);
+        $('#main-question').append(`<p class="col-12 text-center" style="color:#e85500">${data[category_id]['detail']}<i class="fas fa-question-circle"></i></p>`);
+      },
+      error: function (data) {
+        alert("Got an error dude... " + data);
+      },
+    });
+  }
+
+function selected(element){
+  console.log(element)
+  document.getElementsByName('opts').forEach(ele => {
+    ele.style.background = 'white'
+    ele.style.color = "black"
+  })
+  element.style.background = "#e85500"
+  element.style.color = "white"
+}
+
+  count = 0
+  curentCategory_item = 29
+  currentCategory_id_id = 7
+  function next(id=0) {
+    $('#ajax_updated').empty()
+    $('#your_level').empty()
+   
+    document.getElementsByName("nav").forEach(e => {
+      e.classList.remove("active");
+    })
+    $(`#nav_${id}`).addClass("active")
+
+    console.log(allOptions);
+   
+    if (count < allOptionsLength) {
+      console.log("nexttt");
+      $('#your_level').append(`<h2 class="col-12 text-center">What is your ${allOptions[count]['level_name']}?</h2>`);
+      allOptions[count]['options'].forEach(element => {
+
+
+        $('#ajax_updated').append(`<div class="col-xl-3  col-md-4 row mt-2 d-flex justify-content-center">
+             <div id="${element['option']}" class="row option d-flex justify-content-center" onclick="selected(this)" name="opts"><span class="col-8 d-flex justify-content-center">${element['option']}</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+          </div>`);
+
+      });
+      if (count==4){
+      document.getElementById('Managed').style.background = "#e85500"
+      document.getElementById('Managed').style.color = "white"
+    }
+    } else {
+      count = 0
+      curentCategory_item = curentCategory_item + 1
+      subCategory(curentCategory_item)
+      $('#your_level').append(`<h2 class="col-12 text-center">What is your ${allOptions[count]['level_name']}?</h2>`);
+      allOptions[count]['options'].forEach(element => {
+
+        $('#ajax_updated').append(`<div class="col-xl-3  col-md-4 row mt-2 d-flex justify-content-center">
+             <div class="row option d-flex justify-content-center" onclick="selected(this)" name="opts"><span class="col-8 d-flex justify-content-center" style="min-height:50px;">${element['option']}</span> <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+          </div>`);
+
+      });
+      console.log("end");
+    }
+
+    count++
+
+  }
+
+
+
+</script>
+
+{% endblock %}
+
+{% for option in options %}
+<div class=" col-xl-2  col-md-4 row mt-2 d-flex justify-content-center">
+  <div class="row option-selected d-flex justify-content-center"><span
+      class="col-8 d-flex justify-content-center">{{option}}</span> <i
+      class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+</div>
+{% endfor %}

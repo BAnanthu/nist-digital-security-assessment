@@ -1,0 +1,25 @@
+
+.effect-10,
+.effect-11,
+.effect-12,
+.effect-13,
+.effect-14,
+.effect-15{border: 0; padding: 7px 25px; border: 1px solid #e85500; position: relative; background: transparent;}
+
+input{
+    margin: auto !important;
+}
+.button{
+    color: rgb(255, 255, 255);
+    background-color: #e85500;
+    border-radius: 50px;
+    transition: .5s;
+}
+.button:hover{
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    transition: 1s;
+}
+h3{
+    color: #e85500;
+}

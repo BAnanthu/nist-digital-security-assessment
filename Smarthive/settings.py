@@ -145,13 +145,13 @@ MEDIA_URL = '/media/'
 #     os.path.join(BASE_DIR, 'static')
 # ]
 
-# LOGIN_URL = '/accounts/signin'
-# LOGIN_REDIRECT_URL = '/admin-dashboard'
+LOGIN_URL = '/accounts/signin'
+LOGIN_REDIRECT_URL = '/admin-dashboard'
 
-
-LOGIN_URL = '/ajit-saigal/accounts/signin'
-LOGIN_REDIRECT_URL = '/ajit-saigal'
-
+#
+# LOGIN_URL = '/ajit-saigal/accounts/signin'
+# LOGIN_REDIRECT_URL = '/ajit-saigal'
+#
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')

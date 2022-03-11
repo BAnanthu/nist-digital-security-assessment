@@ -23,6 +23,7 @@ class Options(models.Model):
     option_id = models.AutoField(primary_key=True)
     level_id = models.ForeignKey(Levels,related_name='option', on_delete=models.CASCADE)
     option = models.TextField()
+    details = models.TextField(null=True,blank=True)
 
     def __str__(self):
         return self.option

@@ -67,4 +67,8 @@ button, #Next{
         text-align: center;
     }
   }
-
+.tooltip-inner {
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
+    min-width:50px;
+}

@@ -106,7 +106,7 @@
                     data-level="{{ level.level_name|slugify }}" data-option="{{x.option_id.option}}"
                  class="row option d-flex justify-content-center" name="opts">
                 <span class="col-8 d-flex justify-content-center" >  {{ x.option_id.option }}</span>
-                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon " data-bs-toggle="tooltip" data-bs-placement="top" title="{{ x.option_id.details }}" ></i></div>
             </div>
 
 
@@ -155,10 +155,12 @@
     <div class="row d-flex justify-content-around m-3">
         <div class="row option d-flex justify-content-center" name="opts">
                 <span class="col-8 d-flex justify-content-center" >{{maturity_level}}</span>
-                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i>-->
+        </div>
         <div class="row option d-flex justify-content-center" name="opts">
                 <span class="col-8 d-flex justify-content-center" >{{asd_maturity_avg.option_id.option}}</span>
-                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i>-->
+        </div>
         <div class="row option d-flex justify-content-center" name="opts">
                 <span class="col-8 d-flex justify-content-center" >
                     <select id="desired-state" class="option" {% if desired_state %} value="{{desired_state.id}}"{% endif %} data-reportid="{{report_id}}" style="height:40px;box-shadow:none !important;border:none;">
@@ -167,7 +169,8 @@
                     <option value="{{state.id}}">{{state.option_id.option}}</option>
                         {% endfor %}
                 </select></span>
-                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon " ></i>-->
+        </div>
     </div>
     <div class="row d-flex justify-content-center m-4">
         <h5 class="col-12 text-left" style="color: black;">Threat Severity</h5>
@@ -183,18 +186,21 @@
                     Critical{% else %}None{% endif %}
 
                 </span>
-                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i>-->
+        </div>
         <div class="row option d-flex justify-content-center" name="opts" style="background:{% if level_avg == 'Low' %}green{% elif level_avg == 'Medium' %}
                     yellow{% elif level_avg == 'High' %}orange{% elif level_avg == 'Critical' %}
                     red{% else %}white{% endif %}">
                 <span class="col-8 d-flex justify-content-center" >{{level_avg}}</span>
-                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i>-->
+        </div>
         <div class="row option d-flex justify-content-center " name="opts" id="state-name-box" style="background:{% if desired_state_severity == 'Low' %}green{% elif desired_state_severity == 'Medium' %}
                     yellow{% elif desired_state_severity == 'High' %}orange{% elif desired_state_severity == 'Critical' %}
                     red{% else %}white{% endif %}">
                 <span class="col-8 d-flex justify-content-center" id="desired-state-name">{% if desired_state_severity %}
                     {{desired_state_severity}} {% endif %}</span>
-                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i></div>
+<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i>-->
+        </div>
     </div>
          <div class="row d-flex justify-content-center mt-5  mb-5  p-4">
       <input type="submit" class="next-btn" value="Next" form="mainForm">
@@ -206,6 +212,7 @@
 </form>
 </div>
 <script>
+
     $(".question").show();
     //$(".report").hide();
     $(".box").show();
@@ -410,6 +417,11 @@
                 }
             });
     });
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
 
 </script>
 

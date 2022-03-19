@@ -332,6 +332,7 @@ class HomeView(View):
                 maturity_level = report.Assessed_Maturity_Level_value.option_id.option
                 context['threat_severity'] = threat_severity
                 context['maturity_level'] = maturity_level
+                context['maturity_level_details'] = report.Assessed_Maturity_Level_value.option_id.details
                 context['report_id'] = report.dataset_id
                 asd_maturity_avg, level_avg = PeerAverage(sub_category_id, function_id)
                 context['asd_maturity_avg'] = ThreatScoringTABLE.objects.get(id=asd_maturity_avg)

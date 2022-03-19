@@ -155,18 +155,18 @@
     <div class="row d-flex justify-content-around m-3">
         <div class="row option d-flex justify-content-center" name="opts">
                 <span class="col-8 d-flex justify-content-center" >{{maturity_level}}</span>
-<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i>-->
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon " data-bs-toggle="tooltip" data-bs-placement="top" title="{{maturity_level_details}}" ></i>
         </div>
         <div class="row option d-flex justify-content-center" name="opts">
                 <span class="col-8 d-flex justify-content-center" >{{asd_maturity_avg.option_id.option}}</span>
-<!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon "></i>-->
+                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon " data-bs-toggle="tooltip" data-bs-placement="top" title="{{ asd_maturity_avg.option_id.details }}" ></i>
         </div>
         <div class="row option d-flex justify-content-center" name="opts">
                 <span class="col-8 d-flex justify-content-center" >
                     <select id="desired-state" class="option" {% if desired_state %} value="{{desired_state.id}}"{% endif %} data-reportid="{{report_id}}" style="height:40px;box-shadow:none !important;border:none;">
                      <option value="None"> {% if desired_state %}{{desired_state.option_id.option}}{% else %}--select--{% endif %}</option>
                         {% for state in your_desired_state %}
-                    <option value="{{state.id}}">{{state.option_id.option}}</option>
+                    <option value="{{state.id}}" data-label="{{state.option_id.option}}" data-details="{{state.option_id.details}}">{{state.option_id.option}}</option>
                         {% endfor %}
                 </select></span>
 <!--                <i class="d-flex justify-content-center col-2 fas fa-info-circle info-icon " ></i>-->
@@ -211,10 +211,30 @@
 
 </form>
 </div>
+
+<!-- Modal -->
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Are you sure?</h5>
+<!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="modal-submit">submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
 
     $(".question").show();
     //$(".report").hide();
+    $("#modal").hide();
     $(".box").show();
     $("#next").show()
     $("#prev").show()
@@ -379,12 +399,25 @@
     }
 
     $('#desired-state').change(function(e){
-    var desired_state = $(this).val();
+    var myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"), {});
+    myModal._element.children[0].children[0].children[1].innerHTML= $(this).find('option:selected').data('label') +": " + $(this).find('option:selected').data('details')
+    myModal.show();
+      var selectbox = $(this)
+     var desired_state = $(this).val();
     var report_id = $(this).data("reportid");
     var function_id = $('#function_id').val();
     console.log(function_id)
     var bg_color ='white';
     var url = '{% url "your-desired-level-view" %}'
+
+    //CANCEL
+     myModal._element.children[0].children[0].children[2].children[0].onclick=function(){
+        console.log(selectbox.val())
+         selectbox.val($.data(this, 'current'));
+     }
+
+    myModal._element.children[0].children[0].children[2].children[1].onclick=function(){
+    myModal.hide();
     $.ajax({
                 type: "GET",
                 url: url,
@@ -416,6 +449,10 @@
                     console.log(thrownError);
                 }
             });
+    };
+
+
+
     });
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

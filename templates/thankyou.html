@@ -57,15 +57,19 @@
 
 <div class="">
     <div class="row d-flex justify-content-center" id="sybcat">
-        <h1 class="col-12 text-center " style="color: #e85500e85500e85500326872;">Thank You</h1>
-        <h3 class="col-12 text-center mt-4" style="color: #e85500e85500e85500326872;">You have Successfully completed the Maturity and Threat Assessment Process</h3>
+        <h1 class="col-12 text-center " style="color: #326872;">Thank You</h1>
+        <h3 class="col-12 text-center mt-4" style="color: #326872;">You have Successfully completed the Maturity and Threat Assessment Process</h3>
     </div>
+            <h3 class="col-12 text-center mt-4" style="color: black;">CYBERSECURITY THREAT ASSESSMENT REPORT</h3>
+
     <div class="container  shadow-sm p-3 mb-5 bg-white rounded">
         <table class="table ">
   <caption>Final report (total {{total_datasets}})</caption>
   <thead>
     <tr style="background:#326872;color:white;">
-      <th scope="col">#</th>
+<!--      <th scope="col">#</th>-->
+      <th scope="col">Function</th>
+      <th scope="col">Category</th>
       <th scope="col">Subcategory</th>
       <th scope="col">Assessed maturity level</th>
       <th scope="col">Severity</th>
@@ -74,15 +78,17 @@
     </tr>
   </thead>
   <tbody>
-            <thead >
-         <tr style="background:#67b9c9;color:black;">
-         <th colspan="6">Identify</th>
-        </tr>
-    </thead>
+<!--            <thead >-->
+<!--         <tr style="background:#67b9c9;color:black;">-->
+<!--         <th colspan="6">Identify</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
 
     {% for dataset in identify_dataset %}
     <tr>
-      <th scope="row">{{ forloop.counter }}</th>
+<!--      <th scope="row">{{ forloop.counter }}</th>-->
+      <td>{{dataset.category_id.function_id}}</td>
+      <td>{{dataset.category_id}}</td>
       <td>{{dataset.sub_category_id}}</td>
       <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
       <td>{{dataset.severity}}</td>
@@ -101,14 +107,16 @@
       <td>{{dataset.total}}</td>
     </tr>
     {% endfor %}
-     <thead >
-         <tr style="background:#67b9c9;color:black;">
-         <th colspan="6">Protect</th>
-        </tr>
-    </thead>
+<!--     <thead >-->
+<!--         <tr style="background:#67b9c9;color:black;">-->
+<!--         <th colspan="6">Protect</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
       {% for dataset in protect_dataset %}
     <tr>
-      <th scope="row">{{ forloop.counter }}</th>
+<!--      <th scope="row">{{ forloop.counter }}</th>-->
+         <td>{{dataset.category_id.function_id}}</td>
+      <td>{{dataset.category_id}}</td>
       <td>{{dataset.sub_category_id}}</td>
       <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
       <td>{{dataset.severity}}</td>
@@ -122,15 +130,17 @@
       <td>{{dataset.total}}</td>
     </tr>
     {% endfor %}
-            <thead >
-         <tr style="background:#67b9c9;color:black;">
-         <th colspan="6">Detect</th>
-        </tr>
-    </thead>
+<!--            <thead >-->
+<!--         <tr style="background:#67b9c9;color:black;">-->
+<!--         <th colspan="6">Detect</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
 
       {% for dataset in detect_dataset %}
     <tr>
-      <th scope="row">{{ forloop.counter }}</th>
+<!--      <th scope="row">{{ forloop.counter }}</th>-->
+         <td>{{dataset.category_id.function_id}}</td>
+      <td>{{dataset.category_id}}</td>
       <td>{{dataset.sub_category_id}}</td>
       <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
       <td>{{dataset.severity}}</td>
@@ -144,15 +154,17 @@
       <td>{{dataset.total}}</td>
     </tr>
     {% endfor %}
-        <thead >
-         <tr style="background:#67b9c9;color:black;">
-         <th colspan="6">Recover</th>
-        </tr>
-    </thead>
+<!--        <thead >-->
+<!--         <tr style="background:#67b9c9;color:black;">-->
+<!--         <th colspan="6">Recover</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
 
       {% for dataset in recover_dataset %}
     <tr>
-      <th scope="row">{{ forloop.counter }}</th>
+<!--      <th scope="row">{{ forloop.counter }}</th>-->
+         <td>{{dataset.category_id.function_id}}</td>
+      <td>{{dataset.category_id}}</td>
       <td>{{dataset.sub_category_id}}</td>
       <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
       <td>{{dataset.severity}}</td>
@@ -166,15 +178,17 @@
       <td>{{dataset.total}}</td>
     </tr>
     {% endfor %}
-              <thead >
-         <tr style="background:#67b9c9;color:black;">
-         <th colspan="6">Respond</th>
-        </tr>
-    </thead>
+<!--              <thead >-->
+<!--         <tr style="background:#67b9c9;color:black;">-->
+<!--         <th colspan="6">Respond</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
 
       {% for dataset in respond_dataset %}
     <tr>
-      <th scope="row">{{ forloop.counter }}</th>
+<!--      <th scope="row">{{ forloop.counter }}</th>-->
+         <td>{{dataset.category_id.function_id}}</td>
+      <td>{{dataset.category_id}}</td>
       <td>{{dataset.sub_category_id}}</td>
       <td>{{dataset.Assessed_Maturity_Level_value.option_id}}</td>
       <td>{{dataset.severity}}</td>

@@ -362,7 +362,7 @@ class HomeView(View):
                         recover_objs = []
                         respond_objs = []
                         for index, dataset in enumerate(descending):
-                            dataset.total = index
+                            dataset.total = index + 1
 
                             if dataset.category_id.function_id.function_name == 'IDENTIFY':
                                 identify_objs.append(dataset)

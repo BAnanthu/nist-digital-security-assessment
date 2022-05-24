@@ -9,5 +9,8 @@ urlpatterns = [
     path('question/<int:pk>', views.QuestionsEditView.as_view(), name="question_edit"),
     path('option/<int:pk>', views.OptionEditView.as_view(), name="option_edit"),
     # path('setupdatabase/', views.setupdatabase),
+    path('assessment-list', views.AssesmentsListView.as_view(), name="assessment_list"),
+    path('assessment-view/<int:id>', views.AssesmentsView.as_view(), name="assessment_view"),
+    path('assessment-category-list/<int:id>/<int:fu_id>', views.AssesmentsCategoryListView.as_view(), name="assessment_category_list"),
 
 ]

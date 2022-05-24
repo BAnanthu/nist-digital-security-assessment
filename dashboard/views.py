@@ -2,6 +2,7 @@ import os
 import sqlite3
 
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
@@ -14,6 +15,7 @@ from dashboard.forms import SubCategoryForm, LevelsForm
 from function.models import Function
 from questions.models import Levels, Options
 from report.data_model import MeturityScoringTABLE, ThreatScoringTABLE
+from report.models import Assesmeent, IdentifyDataSet, ProtectDataSet, DetectDataSet, RespondDataSet, RecoverDataSet
 
 
 class Dashboard(View):
@@ -97,7 +99,60 @@ class OptionEditView(View):
     pass
 
 
+class AssesmentsListView(View):
+    def get(self, request):
+        assessments = Assesmeent.objects.all()
+        template = 'assessments/list_assesment.html'
+        context = {"assessments": assessments}
+        return render(request, template, context)
 
+
+class AssesmentsView(View):
+    def get(self, request, id):
+        # user = User.objects.get(id=id)
+        assessments = Assesmeent.objects.get(assessment_id=id)
+        template = 'assessments/assesment_view.html'
+        context = {"username": assessments.user_id.username,
+                   "identify": assessments.identify,
+                   "protect": assessments.protect,
+                   "detect": assessments.detect,
+                   "respond": assessments.respond,
+                   "recover": assessments.recover,
+                   }
+        # return render(request, template, context)
+        return render(request, template, context)
+
+
+class AssesmentsCategoryListView(View):
+    def get(self, request, id, fu_id):
+        identify = {}
+        categories = Category.objects.filter(function_id=fu_id)
+        function = Function.objects.get(function_id=fu_id)
+        print("*******function******", function)
+        if function.function_name == 'IDENTIFY':
+            for category in categories:
+                identify[category.category_name] = IdentifyDataSet.objects.filter(identify_id=id, category_id=category)
+        elif function.function_name == 'PROTECT':
+            print("*************",id)
+            for category in categories:
+                identify[category.category_name] = ProtectDataSet.objects.filter(identify_id=id, category_id=category)
+        elif function.function_name == 'DETECT':
+            for category in categories:
+                identify[category.category_name] = DetectDataSet.objects.filter(identify_id=id, category_id=category)
+        elif function.function_name == 'RESPOND':
+            for category in categories:
+                identify[category.category_name] = RespondDataSet.objects.filter(identify_id=id, category_id=category)
+        elif function.function_name == 'RECOVER':
+            for category in categories:
+                identify[category.category_name] = RecoverDataSet.objects.filter(identify_id=id, category_id=category)
+        else:
+            pass
+
+        template = 'assessments/categories_list_view.html'
+        context = {"identify": identify}
+        print(context)
+        # return render(request, template, context)
+        return render(request, template, context)
 
 
 def setupFunctions(cursor):
@@ -118,7 +173,10 @@ def setupFunctions(cursor):
     except Exception as e:
         return e
 
-from category.models import SubCategory,Category
+
+from category.models import SubCategory, Category
+
+
 def setupCategory(cursor):
     try:
         sqlite_select_query = """SELECT * from category_category"""
@@ -140,6 +198,7 @@ def setupCategory(cursor):
     except Exception as e:
         return e
 
+
 def setupSubcategory(cursor):
     try:
         sqlite_select_query = """SELECT * from category_subcategory"""
@@ -160,6 +219,7 @@ def setupSubcategory(cursor):
         return "SUCCESS"
     except Exception as e:
         return e
+
 
 def setupLevels(cursor):
     try:
@@ -241,20 +301,19 @@ def setupThreatScoringTABLE(cursor):
 
 
 def setupdatabase(request):
-
     conn = None
-    context={}
+    context = {}
     db_file = os.path.join(BASE_DIR, 'db.sqlite3')
     try:
         conn = sqlite3.connect(db_file)
         cursor = conn.cursor()
         context['setupFunctions'] = setupFunctions(cursor)
-        context['setupCategory'] =setupCategory(cursor)
-        context['setupSubcategory'] =setupSubcategory(cursor)
-        context['setupLevels'] =setupLevels(cursor)
-        context['setupOptions'] =setupOptions(cursor)
-        context['setupMeturityScoringTABLE'] =setupMeturityScoringTABLE(cursor)
-        context['setupThreatScoringTABLE'] =setupThreatScoringTABLE(cursor)
+        context['setupCategory'] = setupCategory(cursor)
+        context['setupSubcategory'] = setupSubcategory(cursor)
+        context['setupLevels'] = setupLevels(cursor)
+        context['setupOptions'] = setupOptions(cursor)
+        context['setupMeturityScoringTABLE'] = setupMeturityScoringTABLE(cursor)
+        context['setupThreatScoringTABLE'] = setupThreatScoringTABLE(cursor)
         cursor.close()
     except Exception as e:
         print(e)

@@ -1,0 +1,294 @@
+{% extends 'components/layout.html' %}
+{% load static %}
+
+    {% block head %}
+    <head>
+        <meta charset="utf-8" />
+        <title>ATSL | View Tickets </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static '/images/favicon.ico' %}">
+
+        <!-- plugin css -->
+        <link href="{% static '/libs/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/libs/datatables/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/libs/datatables/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/libs/datatables/select.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <!-- App css -->
+        <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+    </head>
+    {% endblock head %}
+
+
+
+            {% block content %}
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+<!--                        <div class="row page-title">-->
+<!--                            <div class="col-md-12">-->
+<!--                                <nav aria-label="breadcrumb" class="float-right mt-1">-->
+<!--                                    <ol class="breadcrumb">-->
+<!--&lt;!&ndash;                                        <li class="breadcrumb-item"><a href="#">Shreyu</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li class="breadcrumb-item"><a href="#">Tables</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <li class="breadcrumb-item active" aria-current="page">Advanced</li>&ndash;&gt;-->
+<!--                                    </ol>-->
+<!--                                </nav>-->
+<!--                                <h4 class="mb-1 mt-0">Assessment</h4>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+
+
+                        <div class="row">
+                            <div class="col-12">
+
+<!--                                <div class="card">-->
+<!--                                    <div class="card-body">-->
+
+<!--                                        <h4 class="header-title mt-0 mb-1">{{username}}</h4>-->
+<!--                                        <p class="sub-header">-->
+<!--                                            This example shows the multi option. Note how a click on a row will toggle its selected state without effecting other rows,-->
+<!--                                            unlike the os and single options shown in other examples.-->
+<!--                                        </p>-->
+
+
+
+<!--                                    </div> &lt;!&ndash; end card body&ndash;&gt;-->
+
+<!--                                </div> &lt;!&ndash; end card &ndash;&gt;-->
+
+ <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+           <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+<!--                        <div class="row page-title mt-2 d-print-none">-->
+<!--                            <div class="col-md-12">-->
+<!--                                <nav aria-label="breadcrumb" class="float-right mt-1">-->
+<!--                                    <ol class="breadcrumb">-->
+<!--                                        <li class="breadcrumb-item"><a href="#">Shreyu</a></li>-->
+<!--                                        <li class="breadcrumb-item"><a href="#">Pages</a></li>-->
+<!--                                        <li class="breadcrumb-item active" aria-current="page">Invoice</li>-->
+<!--                                    </ol>-->
+<!--                                </nav>-->
+<!--                                <h4 class="mb-1 mt-0">Assessment Report</h4>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- Logo & title -->
+                                        <div class="clearfix">
+                                            <div class="float-sm-right">
+                                                <img src="assets/images/logo.png" alt="" height="48" />
+                                                <h4 class="m-0 d-inline align-middle">ATSL</h4>
+                                                <address class="pl-2 mt-2">
+                                                    795 Folsom Ave, Suite 600<br>
+                                                    San Francisco, CA 94107<br>
+                                                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                                                </address>
+                                            </div>
+                                            <div class="float-sm-left">
+                                                <h4 class="m-0 d-print-none">Assessment Report</h4>
+                                                <dl class="row mb-2 mt-3">
+                                                    <dt class="col-sm-4 font-weight-normal">Report Number :</dt>
+                                                    <dd class="col-sm-8 font-weight-normal">#sh1001</dd>
+
+                                                    <dt class="col-sm-5 font-weight-normal">Report Generated Date :</dt>
+                                                    <dd class="col-sm-7 font-weight-normal">Jul 17, 2019</dd>
+
+<!--                                                    <dt class="col-sm-3 font-weight-normal">Due Date :</dt>-->
+<!--                                                    <dd class="col-sm-9 font-weight-normal">Jul 27, 2019</dd>-->
+                                                </dl>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <div class="col-md-6">
+                                                <h6 class="font-weight-normal">Report For:</h6>
+                                                <h6 class="font-size-16">Greeva Navadiya</h6>
+                                                <address>
+                                                    795 Folsom Ave, Suite 600<br>
+                                                    San Francisco, CA 94107<br>
+                                                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                                                </address>
+                                            </div> <!-- end col -->
+
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="text-md-right">-->
+<!--                                                    <h6 class="font-weight-normal">Total</h6>-->
+<!--                                                    <h2>$4137.75</h2>-->
+<!--                                                </div>-->
+<!--                                            </div> &lt;!&ndash; end col &ndash;&gt;-->
+                                        </div>
+                                        <!-- end row -->
+
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-12">-->
+<!--                                                <div class="table-responsive">-->
+<!--                                                    <table class="table mt-4 table-centered">-->
+<!--                                                        <thead>-->
+<!--                                                            <tr>-->
+<!--                                                                <th>#</th>-->
+<!--                                                                <th>Item</th>-->
+<!--                                                                <th style="width: 10%">Hours</th>-->
+<!--                                                                <th style="width: 10%">Hours Rate</th>-->
+<!--                                                                <th style="width: 10%" class="text-right">Total</th>-->
+<!--                                                            </tr>-->
+<!--                                                        </thead>-->
+<!--                                                        <tbody>-->
+<!--                                                            <tr>-->
+<!--                                                                <td>1</td>-->
+<!--                                                                <td>-->
+<!--                                                                    <h5 class="font-size-16 mt-0 mb-2">Web Design</h5>-->
+<!--                                                                    <p class="text-muted mb-0">2 Pages static website - -->
+<!--                                                                        my-->
+<!--                                                                        website</p>-->
+<!--                                                                </td>-->
+<!--                                                                <td>22</td>-->
+<!--                                                                <td>$30</td>-->
+<!--                                                                <td class="text-right">$660.00</td>-->
+<!--                                                            </tr>-->
+<!--                                                            <tr>-->
+<!--                                                                <td>2</td>-->
+<!--                                                                <td>-->
+<!--                                                                    <h5 class="font-size-16 mt-0 mb-2">Software Development</h5>-->
+<!--                                                                    <p class="text-muted mb-0">Invoice editor software - -->
+<!--                                                                        AB'c-->
+<!--                                                                        Software</p>-->
+<!--                                                                </td>-->
+<!--                                                                <td>112.5</td>-->
+<!--                                                                <td>$35</td>-->
+<!--                                                                <td class="text-right">$3937.50</td>-->
+<!--                                                            </tr>-->
+
+<!--                                                        </tbody>-->
+<!--                                                    </table>-->
+<!--                                                </div> &lt;!&ndash; end table-responsive &ndash;&gt;-->
+<!--                                            </div> &lt;!&ndash; end col &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                        &lt;!&ndash; end row &ndash;&gt;-->
+
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-sm-6">-->
+<!--                                                <div class="clearfix pt-5">-->
+<!--                                                    <h6 class="text-muted">Notes:</h6>-->
+
+<!--                                                    <small class="text-muted">-->
+<!--                                                        All accounts are to be paid within 7 days from receipt of-->
+<!--                                                        invoice. To be paid by cheque or credit card or direct payment-->
+<!--                                                        online. If account is not paid within 7 days the credits details-->
+<!--                                                        supplied as confirmation of work undertaken will be charged the-->
+<!--                                                        agreed quoted fee noted above.-->
+<!--                                                    </small>-->
+<!--                                                </div>-->
+<!--                                            </div> &lt;!&ndash; end col &ndash;&gt;-->
+<!--                                            <div class="col-sm-6">-->
+<!--                                                <div class="float-right mt-4">-->
+<!--                                                    <p><span class="font-weight-medium">Sub-total:</span> <span-->
+<!--                                                            class="float-right">$4597.50</span></p>-->
+<!--                                                    <p><span class="font-weight-medium">Discount (10%):</span> <span-->
+<!--                                                            class="float-right"> &nbsp;&nbsp;&nbsp; $459.75</span></p>-->
+<!--                                                    <h3>$4137.75 USD</h3>-->
+<!--                                                </div>-->
+<!--                                                <div class="clearfix"></div>-->
+<!--                                            </div> &lt;!&ndash; end col &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                        &lt;!&ndash; end row &ndash;&gt;-->
+
+                                        <div class="mt-5 mb-1">
+                                            <div class="text-right d-print-none">
+                                                <a href="javascript:window.print()" class="btn btn-primary"><i
+                                                        class="uil uil-print mr-1"></i> Print</a>
+<!--                                                <a href="#" class="btn btn-info">Submit</a>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div> <!-- container-fluid -->
+
+                </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+                            </div><!-- end col-->
+                        </div>
+                        <!-- end row-->
+
+                    </div> <!-- container-fluid -->
+
+                </div> <!-- content -->
+
+
+
+                <!-- Footer Start -->
+<!--                <footer class="footer">-->
+<!--                    <div class="container-fluid">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-12">-->
+<!--                                2019 &copy; Shreyu. All Rights Reserved. Crafted with <i class='uil uil-heart text-danger font-size-12'></i> by <a href="https://coderthemes.com" target="_blank">Coderthemes</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </footer>-->
+                <!-- end Footer -->
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+           {% endblock content %}
+
+
+       {% block script %}
+             <!-- Vendor js -->
+        <script src="{% static '/js/vendor.min.js' %}"></script>
+
+        <!-- datatable js -->
+        <script src="{% static '/libs/datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/dataTables.responsive.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/responsive.bootstrap4.min.js' %}"></script>
+
+        <script src="{% static '/libs/datatables/dataTables.buttons.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/buttons.bootstrap4.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/buttons.html5.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/buttons.flash.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/buttons.print.min.js' %}"></script>
+
+        <script src="{% static '/libs/datatables/dataTables.keyTable.min.js' %}"></script>
+        <script src="{% static '/libs/datatables/dataTables.select.min.js' %}"></script>
+
+        <!-- Datatables init -->
+        <script src="{% static '/js/pages/datatables.init.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static '/js/app.min.js' %}"></script>
+       {% endblock script %}

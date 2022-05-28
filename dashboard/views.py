@@ -3,6 +3,7 @@ import sqlite3
 
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.db.models import Count
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
@@ -115,6 +116,9 @@ class AssesmentsView(View):
         detect_count = 0
         respond_count = 0
         recover_count = 0
+        subcategory_counts = SubCategory.objects.all().values('function_id__function_name').annotate(
+            count=Count('pk', distinct=True)).order_by()
+
         assessments = Assesmeent.objects.get(assessment_id=id)
         if assessments.identify:
             identify_count = IdentifyDataSet.objects.filter(identify_id=assessments.identify.id).count()
@@ -126,6 +130,29 @@ class AssesmentsView(View):
             respond_count = RespondDataSet.objects.filter(identify_id=assessments.respond.id).count()
         if assessments.recover:
             recover_count = RecoverDataSet.objects.filter(identify_id=assessments.recover.id).count()
+
+        for subcategory_count in subcategory_counts:
+            try:
+                if subcategory_count.get('function_id__function_name', None) == 'IDENTIFY':
+                    identify_total_subcat = subcategory_count.get('count', None)
+                    identify_pec_complete = int((identify_count / identify_total_subcat) * 100)
+                elif subcategory_count.get('function_id__function_name', None) == 'PROTECT':
+                    protect_total_subcat = subcategory_count.get('count', 0)
+                    protect_pec_complete = int((protect_count / protect_total_subcat) * 100)
+                elif subcategory_count.get('function_id__function_name', None) == 'DETECT':
+                    detect_total_subcat = subcategory_count.get('count', 0)
+                    detect_pec_complete = int((detect_count / detect_total_subcat) * 100)
+                elif subcategory_count.get('function_id__function_name', None) == 'RESPOND':
+                    respond_total_subcat = subcategory_count.get('count', 0)
+                    respond_pec_complete = int((respond_count / respond_total_subcat) * 100)
+                elif subcategory_count.get('function_id__function_name', None) == 'RECOVER':
+                    recover_total_subcat = subcategory_count.get('count', 0)
+                    recover_pec_complete = int((recover_count / recover_total_subcat) * 100)
+                else:
+                    pass
+            except ZeroDivisionError as e:
+                print(e)
+
         template = 'assessments/assesment_view.html'
         context = {"username": assessments.user_id.username,
                    "identify": assessments.identify,
@@ -137,7 +164,12 @@ class AssesmentsView(View):
                    "protect_count": protect_count,
                    "detect_count": detect_count,
                    "respond_count": respond_count,
-                   "recover_count": recover_count
+                   "recover_count": recover_count,
+                   "identify_pec_complete": identify_pec_complete,
+                   "protect_pec_complete": protect_pec_complete,
+                   "detect_pec_complete": detect_pec_complete,
+                   "respond_pec_complete": respond_pec_complete,
+                   "recover_pec_complete": recover_pec_complete
                    }
         # return render(request, template, context)
         print(context)
@@ -173,6 +205,14 @@ class AssesmentsCategoryListView(View):
         context = {"identify": identify}
         print(context)
         # return render(request, template, context)
+        return render(request, template, context)
+
+
+class AssesmentsViewPrintView(View):
+
+    def get(self, request):
+        template = 'assessments/view_print.html'
+        context = {"identify": 'identify'}
         return render(request, template, context)
 
 

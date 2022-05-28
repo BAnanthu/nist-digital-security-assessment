@@ -12,5 +12,6 @@ urlpatterns = [
     path('assessment-list', views.AssesmentsListView.as_view(), name="assessment_list"),
     path('assessment-view/<int:id>', views.AssesmentsView.as_view(), name="assessment_view"),
     path('assessment-category-list/<int:id>/<int:fu_id>', views.AssesmentsCategoryListView.as_view(), name="assessment_category_list"),
+    path('assessment-view-print/', views.AssesmentsViewPrintView.as_view(), name="assessments_view_print"),
 
 ]

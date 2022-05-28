@@ -110,7 +110,22 @@ class AssesmentsListView(View):
 class AssesmentsView(View):
     def get(self, request, id):
         # user = User.objects.get(id=id)
+        identify_count = 0
+        protect_count = 0
+        detect_count = 0
+        respond_count = 0
+        recover_count = 0
         assessments = Assesmeent.objects.get(assessment_id=id)
+        if assessments.identify:
+            identify_count = IdentifyDataSet.objects.filter(identify_id=assessments.identify.id).count()
+        if assessments.protect:
+            protect_count = ProtectDataSet.objects.filter(identify_id=assessments.protect.id).count()
+        if assessments.detect:
+            detect_count = DetectDataSet.objects.filter(identify_id=assessments.detect.id).count()
+        if assessments.respond:
+            respond_count = RespondDataSet.objects.filter(identify_id=assessments.respond.id).count()
+        if assessments.recover:
+            recover_count = RecoverDataSet.objects.filter(identify_id=assessments.recover.id).count()
         template = 'assessments/assesment_view.html'
         context = {"username": assessments.user_id.username,
                    "identify": assessments.identify,
@@ -118,8 +133,14 @@ class AssesmentsView(View):
                    "detect": assessments.detect,
                    "respond": assessments.respond,
                    "recover": assessments.recover,
+                   "identify_count": identify_count,
+                   "protect_count": protect_count,
+                   "detect_count": detect_count,
+                   "respond_count": respond_count,
+                   "recover_count": recover_count
                    }
         # return render(request, template, context)
+        print(context)
         return render(request, template, context)
 
 
@@ -133,7 +154,7 @@ class AssesmentsCategoryListView(View):
             for category in categories:
                 identify[category.category_name] = IdentifyDataSet.objects.filter(identify_id=id, category_id=category)
         elif function.function_name == 'PROTECT':
-            print("*************",id)
+            print("*************", id)
             for category in categories:
                 identify[category.category_name] = ProtectDataSet.objects.filter(identify_id=id, category_id=category)
         elif function.function_name == 'DETECT':

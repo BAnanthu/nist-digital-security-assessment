@@ -75,8 +75,12 @@
 
                                  <div class="row">
                         <div class="col-md-6 col-xl-3">
+                            {% if  identify %}
                              <a href="{% url 'assessment_category_list' id=identify.id fu_id=identify.identify_id.function_id %}">
-                            <div class="card">
+                              {% else %}
+                                 <a href="">
+                                 {% endif %}
+                                 <div class="card">
                                 <div class="card-body p-0">
                                     <div class="p-3">
                                         <span class="text-muted text-uppercase font-size-12 font-weight-bold">Identify</span>
@@ -93,8 +97,12 @@
                         </div>
 
                         <div class="col-md-6 col-xl-3">
+                              {% if  protect %}
                              <a href="{% url 'assessment_category_list' id=protect.id fu_id=protect.protect_id.function_id %}">
-                            <div class="card">
+                              {% else %}
+                                 <a href="">
+                                 {% endif %}
+                                 <div class="card">
                                 <div class="card-body p-0">
                                     <div class="p-3">
                                         <span class="text-muted text-uppercase font-size-12 font-weight-bold">Protect</span>
@@ -111,7 +119,11 @@
                         </div>
 
                         <div class="col-md-6 col-xl-3">
+                            {% if  detect %}
                              <a href="{% url 'assessment_category_list' id=detect.id fu_id=detect.detect_id.function_id %}">
+                                 {% else %}
+                                 <a href="">
+                                 {% endif %}
                             <div class="card">
                                 <div class="card-body p-0">
                                     <div class="p-3">
@@ -129,8 +141,12 @@
                         </div>
 
                         <div class="col-md-6 col-xl-3">
+                             {% if  respond %}
                             <a href="{% url 'assessment_category_list' id=respond.id  fu_id=respond.respond_id.function_id %}">
-                            <div class="card" >
+                              {% else %}
+                                 <a href="">
+                                 {% endif %}
+                                <div class="card" >
                                 <div class="card-body p-0">
                                     <div class="p-3">
                                         <span class="text-muted text-uppercase font-size-12 font-weight-bold">Respond</span>
@@ -147,8 +163,12 @@
                         </div>
 
                        <div class="col-md-6 col-xl-3">
+                           {% if  recover %}
                             <a href="{% url 'assessment_category_list' id=recover.id fu_id=recover.recover_id.function_id %}">
-                            <div class="card">
+                              {% else %}
+                                 <a href="">
+                                 {% endif %}
+                                <div class="card">
                                 <div class="card-body p-0">
                                     <div class="p-3">
                                         <span class="text-muted text-uppercase font-size-12 font-weight-bold">Recover</span>

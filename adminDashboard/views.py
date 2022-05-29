@@ -82,6 +82,7 @@ def findFunctionID(assesment):
         'respond': assesment.respond,
         'recover': assesment.recover
     }
+    print(function_ids)
     return function_ids
 
 
@@ -122,35 +123,40 @@ def getFistQuestion(function_id, category_id, sub_category_id, assesment, direct
                 function_id_dict = findFunctionID(assesment)
                 if not function_id_dict['identify'] and function == 1:
                     identify_obj = Identify()
-                    identify_obj.identify_id = function_id
+                    # identify_obj.identify_id = function_id
+                    identify_obj.identify_id = Function.objects.get(function_id=function)
                     identify_obj.category_id = category_id
                     identify_obj.save()
                     assesment.identify = identify_obj
                     assesment.save()
                 elif not function_id_dict['protect'] and function == 2:
                     protect_obj = Protect()
-                    protect_obj.protect_id = function_id
+                    # protect_obj.protect_id = function_id
+                    protect_obj.protect_id = Function.objects.get(function_id=function)
                     protect_obj.category_id = category_id
                     protect_obj.save()
                     assesment.protect = protect_obj
                     assesment.save()
                 elif not function_id_dict['detect'] and function == 3:
                     detect_obj = Detect()
-                    detect_obj.detect_id = function_id
+                    # detect_obj.detect_id = function_id
+                    detect_obj.detect_id = Function.objects.get(function_id=function)
                     detect_obj.category_id = category_id
                     detect_obj.save()
                     assesment.detect = detect_obj
                     assesment.save()
                 elif not function_id_dict['respond'] and function == 4:
                     respond_obj = Respond()
-                    respond_obj.respond_id = function_id
+                    # respond_obj.respond_id = function_id
+                    respond_obj.respond_id = Function.objects.get(function_id=function)
                     respond_obj.category_id = category_id
                     respond_obj.save()
                     assesment.respond = respond_obj
                     assesment.save()
                 elif not function_id_dict['recover'] and function == 5:
                     recover_obj = Recover()
-                    recover_obj.recover_id = function_id
+                    # recover_obj.recover_id = function_id
+                    recover_obj.recover_id = Function.objects.get(function_id=function)
                     recover_obj.category_id = category_id
                     recover_obj.save()
                     assesment.recover = recover_obj
@@ -388,7 +394,7 @@ class HomeView(View):
                             'detect_dataset': detect_dataset,
                             'recover_dataset': recover_dataset,
                             'respond_dataset': respond_dataset,
-                            'total_datasets':total_datasets
+                            'total_datasets': total_datasets
                         }
 
                         return render(request, 'thankyou.html', context)
